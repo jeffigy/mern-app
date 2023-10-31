@@ -1,4 +1,4 @@
-import { Stack, Text } from "@chakra-ui/react";
+import { Flex, Spinner, Stack, Text } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -26,13 +26,26 @@ const ShowBook: React.FC<ShowBookProps> = () => {
         console.log(error);
         setLoading(false);
       });
-  });
+  }, []);
+
   return (
-    <Stack>
-      <Text>{book.title}</Text>
-      <Text>{book.author}</Text>
-      <Text>{book.publisherYear}</Text>
-    </Stack>
+    <Flex justifyContent={"center"} w={"1000px"}>
+      {loading ? (
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="blue.500"
+          size="xl"
+        />
+      ) : (
+        <Stack>
+          <Text>{book.title}</Text>
+          <Text>{book.author}</Text>
+          <Text>{book.publisherYear}</Text>
+        </Stack>
+      )}
+    </Flex>
   );
 };
 export default ShowBook;

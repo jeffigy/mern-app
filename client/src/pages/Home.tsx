@@ -1,8 +1,15 @@
-import { Flex, HStack, IconButton, Spinner } from "@chakra-ui/react";
+import {
+  Card,
+  CardBody,
+  Flex,
+  HStack,
+  IconButton,
+  Spinner,
+} from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import { EditIcon, DeleteIcon, InfoIcon } from "@chakra-ui/icons";
+import { EditIcon, DeleteIcon, InfoIcon, AddIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 const Home = () => {
   const [books, setBooks] = useState([]);
@@ -65,7 +72,13 @@ const Home = () => {
   }, []);
 
   return (
-    <Flex justifyContent={"center"} w={"1000px"}>
+    <Flex alignItems={"center"} flexDirection={"column"} gap={5} w={"1000px"}>
+      <IconButton
+        aria-label={"add-button"}
+        as={Link}
+        to={"/books/create"}
+        icon={<AddIcon />}
+      />
       {loading ? (
         <Spinner
           thickness="4px"
@@ -75,7 +88,12 @@ const Home = () => {
           size="xl"
         />
       ) : (
-        <DataTable columns={columns} data={books} />
+        <Card w={"1000px"}>
+          {" "}
+          <CardBody>
+            <DataTable columns={columns} data={books} />
+          </CardBody>
+        </Card>
       )}
     </Flex>
   );
